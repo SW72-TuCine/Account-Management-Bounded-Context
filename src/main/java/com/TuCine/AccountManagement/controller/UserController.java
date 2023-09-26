@@ -2,6 +2,7 @@ package com.TuCine.AccountManagement.controller;
 
 import com.TuCine.AccountManagement.domain.communication.LoginRequest;
 import com.TuCine.AccountManagement.domain.communication.RegisterRequest;
+import com.TuCine.AccountManagement.domain.communication.UpdateRequest;
 import com.TuCine.AccountManagement.resource.TypeUserDto;
 import com.TuCine.AccountManagement.resource.UserDto;
 import com.TuCine.AccountManagement.shared.exception.ValidationException;
@@ -41,18 +42,6 @@ public class UserController {
         return new ResponseEntity<>(userService.getById(userId), HttpStatus.OK);
     }
 
-    //URL: http://localhost:8080/api/TuCine/v1/users/{id}/typeUser
-    //Method: GET
-    @Transactional(readOnly = true)
-    @GetMapping("{userId}/typeUser")
-    public ResponseEntity<TypeUserDto> getTypeUserByUserId(@PathVariable("userId") Long id) {
-        TypeUserDto typeUserDto = userService.getTypeUserById(id);
-        if (typeUserDto == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return new ResponseEntity<>(typeUserDto, HttpStatus.OK);
-    }
-
     //URL: http://localhost:8080/api/TuCine/v1/users/auth/sign-up
     //Method: POST
     @PostMapping("/auth/sign-up")
@@ -66,5 +55,22 @@ public class UserController {
     public ResponseEntity<?> loginUser(@Valid @RequestBody LoginRequest request) {
         return userService.login(request);
     }
+
+    //Update user
+    //URL: http://localhost:8080/api/TuCine/v1/users/{userId}
+    //Method: PUT
+    @PutMapping("{userId}")
+    public ResponseEntity<?> updateUser(@PathVariable("userId") Long userId, @RequestBody UpdateRequest request ){
+        return new ResponseEntity<>(userService.updateUser(userId,request), HttpStatus.OK);
+    }
+
+    //Delete user
+    //URL: http://localhost:8080/api/TuCine/v1/users/{userId}
+    //Method: DELETE
+    @DeleteMapping("{userId}")
+    public ResponseEntity<?> deleteUser(@PathVariable("userId") Long userId){
+        return new ResponseEntity<>(userService.deleteUser(userId), HttpStatus.OK);
+    }
+
 
 }

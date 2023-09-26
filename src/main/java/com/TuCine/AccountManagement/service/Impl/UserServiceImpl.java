@@ -2,6 +2,7 @@ package com.TuCine.AccountManagement.service.Impl;
 
 import com.TuCine.AccountManagement.domain.communication.LoginRequest;
 import com.TuCine.AccountManagement.domain.communication.RegisterRequest;
+import com.TuCine.AccountManagement.domain.communication.UpdateRequest;
 import com.TuCine.AccountManagement.domain.enumeration.Genders;
 import com.TuCine.AccountManagement.domain.enumeration.TypeUsers;
 import com.TuCine.AccountManagement.domain.model.Gender;
@@ -216,5 +217,37 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public ResponseEntity<?> updateUser(Long userId, UpdateRequest request){
+        try {
+            Optional<User> user = userRepository.findById(userId);
+                user.get().setFirstName(request.getFirstName());
+                user.get().setLastName(request.getLastName());
+                user.get().setPhone(request.getPhone());
+                user.get().setPassword(request.getPassword());
+                user.get().setEmail(request.getEmail());
+                user.get().setBirthdate(request.getBirthdate());
+                user.get().setDni(request.getDni());
+                user.get().setImageSrc(request.getImageSrc());
+                user.get().setBankAccount(request.getBankAccount());
+                UserDto resource = enhancedMapper.map(userRepository.save(user.get()), UserDto.class);
+                return ResponseEntity.ok(resource);
+        } catch (Exception e) {
+            logger.error("Error on update: {}", e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> deleteUser(Long userId){
+        try {
+            Optional<User> user = userRepository.findById(userId);
+            userRepository.delete(user.get());
+            return ResponseEntity.ok("Usuario eliminado");
+        } catch (Exception e) {
+            logger.error("Error on delete: {}", e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
 }
