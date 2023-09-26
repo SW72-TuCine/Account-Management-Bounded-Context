@@ -1,5 +1,6 @@
 package com.TuCine.AccountManagement.service;
 
+import com.TuCine.AccountManagement.domain.communication.LoginRequest;
 import com.TuCine.AccountManagement.domain.communication.RegisterRequest;
 import com.TuCine.AccountManagement.resource.TypeUserDto;
 import com.TuCine.AccountManagement.resource.UserDto;
@@ -20,4 +21,9 @@ public interface UserService {
     boolean existsUserByDni(String Dni);
 
     ResponseEntity<?> register(RegisterRequest request);
+
+    //Login
+    ResponseEntity<?> login(LoginRequest request);
+
+
 }

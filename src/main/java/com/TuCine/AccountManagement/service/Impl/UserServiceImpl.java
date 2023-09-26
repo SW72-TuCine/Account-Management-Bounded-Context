@@ -1,5 +1,6 @@
 package com.TuCine.AccountManagement.service.Impl;
 
+import com.TuCine.AccountManagement.domain.communication.LoginRequest;
 import com.TuCine.AccountManagement.domain.communication.RegisterRequest;
 import com.TuCine.AccountManagement.domain.enumeration.Genders;
 import com.TuCine.AccountManagement.domain.enumeration.TypeUsers;
@@ -198,4 +199,22 @@ public class UserServiceImpl implements UserService {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @Override
+    public ResponseEntity<?> login(LoginRequest request) {
+        try {
+            Optional<User> user = userRepository.findByEmailAndPassword(request.getEmail(), request.getPassword());
+            if (user.isPresent()) {
+                UserDto resource = enhancedMapper.map(user.get(), UserDto.class);
+                return ResponseEntity.ok(resource);
+            } else {
+                return ResponseEntity.badRequest().body("Usuario o contraseña incorrectos");
+            }
+        } catch (Exception e) {
+            logger.error("Error on login: {}", e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+
 }

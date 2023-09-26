@@ -1,5 +1,6 @@
 package com.TuCine.AccountManagement.controller;
 
+import com.TuCine.AccountManagement.domain.communication.LoginRequest;
 import com.TuCine.AccountManagement.domain.communication.RegisterRequest;
 import com.TuCine.AccountManagement.resource.TypeUserDto;
 import com.TuCine.AccountManagement.resource.UserDto;
@@ -59,5 +60,11 @@ public class UserController {
         return userService.register(request);
     }
 
+    //URL: http://localhost:8080/api/TuCine/v1/users/auth/sign-in
+    //Method: POST
+    @PostMapping("/auth/sign-in")
+    public ResponseEntity<?> loginUser(@Valid @RequestBody LoginRequest request) {
+        return userService.login(request);
+    }
 
 }
