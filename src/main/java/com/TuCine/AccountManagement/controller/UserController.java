@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/TuCine/v1/users")
+@RequestMapping("/api/TuCine/v1/account_management")
 public class UserController {
 
     @Autowired
@@ -29,7 +29,7 @@ public class UserController {
     //URL: http://localhost:8080/api/TuCine/v1/users
     //Method: GET
     @Transactional(readOnly = true)
-    @GetMapping
+    @GetMapping("/users")
     public ResponseEntity<List<UserDto>> getAllUsers() {
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
@@ -37,21 +37,21 @@ public class UserController {
     //URL: http://localhost:8080/api/TuCine/v1/users/{userId}
     //Method: GET
     @Transactional(readOnly = true)
-    @GetMapping("{userId}")
+    @GetMapping("/users/{userId}")
     public ResponseEntity<UserDto> getUserById(@PathVariable("userId") Long userId){
         return new ResponseEntity<>(userService.getById(userId), HttpStatus.OK);
     }
 
     //URL: http://localhost:8080/api/TuCine/v1/users/auth/sign-up
     //Method: POST
-    @PostMapping("/auth/sign-up")
+    @PostMapping("/users/auth/sign-up")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest request) {
         return userService.register(request);
     }
 
     //URL: http://localhost:8080/api/TuCine/v1/users/auth/sign-in
     //Method: POST
-    @PostMapping("/auth/sign-in")
+    @PostMapping("/users/auth/sign-in")
     public ResponseEntity<?> loginUser(@Valid @RequestBody LoginRequest request) {
         return userService.login(request);
     }
@@ -59,7 +59,7 @@ public class UserController {
     //Update user
     //URL: http://localhost:8080/api/TuCine/v1/users/{userId}
     //Method: PUT
-    @PutMapping("{userId}")
+    @PutMapping("/users/{userId}")
     public ResponseEntity<?> updateUser(@PathVariable("userId") Long userId, @RequestBody UpdateRequest request ){
         return new ResponseEntity<>(userService.updateUser(userId,request), HttpStatus.OK);
     }
@@ -67,7 +67,7 @@ public class UserController {
     //Delete user
     //URL: http://localhost:8080/api/TuCine/v1/users/{userId}
     //Method: DELETE
-    @DeleteMapping("{userId}")
+    @DeleteMapping("/users/{userId}")
     public ResponseEntity<?> deleteUser(@PathVariable("userId") Long userId){
         return new ResponseEntity<>(userService.deleteUser(userId), HttpStatus.OK);
     }

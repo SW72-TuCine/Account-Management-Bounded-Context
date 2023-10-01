@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/TuCine/v1")
+@RequestMapping("/api/TuCine/v1/account_management")
 public class TypeUserController {
 
     @Autowired
