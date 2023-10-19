@@ -31,4 +31,7 @@ public interface UserService {
 
     //Delete user
     ResponseEntity<?> deleteUser(Long userId);
+
+    //Check if user exist
+    boolean checkIfUserExist(Long userId);
 }

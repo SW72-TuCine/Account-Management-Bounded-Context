@@ -72,5 +72,10 @@ public class UserController {
         return new ResponseEntity<>(userService.deleteUser(userId), HttpStatus.OK);
     }
 
-
+    //
+    //URL: http://localhost:8080/api/TuCine/v1/users/{userId}
+    @RequestMapping("/users/verify/{userId}")
+    boolean checkIfUserExist(@PathVariable Long userId){
+        return userService.checkIfUserExist(userId);
+    }
 }
