@@ -66,13 +66,6 @@
 			<version>2.1.0</version>
 		</dependency>
 
-		<dependency>
-			<groupId>io.cucumber</groupId>
-			<artifactId>cucumber-java</artifactId>
-			<version>7.14.0</version>
-			<scope>test</scope>
-		</dependency>
-
 		<!--Eureka -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -133,9 +126,7 @@
 					</excludes>
 				</configuration>
 			</plugin>
-
 		</plugins>
-		<finalName>springboot-mysql-docker</finalName>
 	</build>
 
 </project>
